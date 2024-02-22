@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netflix Subscription</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    max-width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  form {
+    margin-top: 20px;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
+  input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  input[type="submit"]:hover {
+    background-color: #cc0812;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Subscribe to Netflix</h1>
+<form id="subscription-form" method="post" action="#">
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" required>
+<label for="email">Email:</label>
+<input type="email" id="email" name="email" required>
+<label for="password">Password:</label>
+<input type="password" id="password" name="password" required>
+<input type="submit" name="submit" value="Subscribe">
+</form>
+</div>
+
+<script>
+  document.getElementById('subscription-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    // Collect form data
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+
+    // Create a data object to be downloaded
+    var data = "Name: " + name + "\nEmail: " + email + "\nPassword: " + password;
+
+    // Create a blob from the data
+    var blob = new Blob([data], { type: 'text/plain' });
+
+    // Create a URL for the blob
+    var url = window.URL.createObjectURL(blob);
+
+    // Create a download link
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'subscription.txt';
+    document.body.appendChild(a);
+
+    // Click the download link
+    a.click();
+
+    // Remove the download link
+    document.body.removeChild(a);
+  });
+</script>
+</body>
+</html>
